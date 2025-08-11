@@ -15,11 +15,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
 
-const checkoutSchema = insertOrderSchema.omit({
-  customerName: true,
-}).extend({
+const checkoutSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
+  customerEmail: z.string().email("Please enter a valid email"),
+  customerPhone: z.string().min(1, "Phone number is required"),
+  shippingAddress: z.string().min(1, "Shipping address is required"),
+  city: z.string().min(1, "City is required"),
+  postalCode: z.string().min(1, "Postal code is required"),
 });
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -40,8 +43,6 @@ export default function CheckoutForm() {
       shippingAddress: "",
       city: "",
       postalCode: "",
-      items: "",
-      total: "",
     },
   });
 
