@@ -47,8 +47,17 @@ export default function CheckoutForm() {
 
   const createOrderMutation = useMutation({
     mutationFn: async (orderData: any) => {
-      const response = await apiRequest("POST", "/api/orders", orderData);
-      return response.json();
+      try {
+        console.log("Making API request with data:", orderData);
+        const response = await apiRequest("POST", "/api/orders", orderData);
+        console.log("API response received:", response.status);
+        const result = await response.json();
+        console.log("Response data:", result);
+        return result;
+      } catch (error) {
+        console.error("API request failed:", error);
+        throw error;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/orders"] });
@@ -72,17 +81,29 @@ export default function CheckoutForm() {
   const onSubmit = (data: CheckoutFormData) => {
     console.log("Form submitted with data:", data);
     console.log("Cart items:", items);
+    console.log("Cart total:", total);
     
+    if (items.length === 0) {
+      toast({
+        title: "Cart is empty",
+        description: "Please add items to your cart before checking out.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    const finalTotal = total + (total >= 75 ? 0 : 9.99) + (total * 0.08);
     const orderData = {
       ...data,
       customerName: `${data.firstName} ${data.lastName}`,
       items: JSON.stringify(items),
-      total: (total + (total >= 75 ? 0 : 9.99) + (total * 0.08)).toFixed(2),
+      total: finalTotal.toFixed(2),
     };
 
     // Remove firstName and lastName as they're not part of the order schema
     const { firstName, lastName, ...submitData } = orderData;
     console.log("Submitting order data:", submitData);
+    console.log("Final total:", finalTotal);
     
     createOrderMutation.mutate(submitData);
   };

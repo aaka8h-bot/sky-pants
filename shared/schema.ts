@@ -45,9 +45,6 @@ export const insertOrderSchema = createInsertSchema(orders).omit({
   createdAt: true,
   status: true,
   telegramSent: true,
-}).extend({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
 });
 
 export type Product = typeof products.$inferSelect;
