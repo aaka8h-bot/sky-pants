@@ -15,7 +15,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
 
-const checkoutSchema = insertOrderSchema.extend({
+const checkoutSchema = insertOrderSchema.omit({
+  customerName: true,
+}).extend({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
 });
@@ -44,7 +46,7 @@ export default function CheckoutForm() {
   });
 
   const createOrderMutation = useMutation({
-    mutationFn: async (orderData: CheckoutFormData) => {
+    mutationFn: async (orderData: any) => {
       const response = await apiRequest("POST", "/api/orders", orderData);
       return response.json();
     },
@@ -58,6 +60,7 @@ export default function CheckoutForm() {
       setLocation("/");
     },
     onError: (error: Error) => {
+      console.error("Order creation failed:", error);
       toast({
         title: "Order failed",
         description: error.message || "Please try again.",
@@ -67,13 +70,21 @@ export default function CheckoutForm() {
   });
 
   const onSubmit = (data: CheckoutFormData) => {
+    console.log("Form submitted with data:", data);
+    console.log("Cart items:", items);
+    
     const orderData = {
       ...data,
+      customerName: `${data.firstName} ${data.lastName}`,
       items: JSON.stringify(items),
       total: (total + (total >= 75 ? 0 : 9.99) + (total * 0.08)).toFixed(2),
     };
 
-    createOrderMutation.mutate(orderData);
+    // Remove firstName and lastName as they're not part of the order schema
+    const { firstName, lastName, ...submitData } = orderData;
+    console.log("Submitting order data:", submitData);
+    
+    createOrderMutation.mutate(submitData);
   };
 
   return (

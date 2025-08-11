@@ -43,13 +43,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create order
   app.post("/api/orders", async (req, res) => {
     try {
+      console.log("Received order request:", JSON.stringify(req.body, null, 2));
+      
       const validatedData = insertOrderSchema.parse(req.body);
+      console.log("Validated order data:", JSON.stringify(validatedData, null, 2));
+      
       const order = await storage.createOrder(validatedData);
+      console.log("Created order:", JSON.stringify(order, null, 2));
       
       // Send Telegram notification
       try {
+        console.log("Sending Telegram notification...");
         await sendTelegramNotification(order);
         await storage.updateOrder(order.id, { telegramSent: true });
+        console.log("Telegram notification sent successfully");
       } catch (telegramError) {
         console.error("Failed to send Telegram notification:", telegramError);
         // Don't fail the order creation if Telegram fails
@@ -57,6 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.status(201).json(order);
     } catch (error) {
+      console.error("Order creation error:", error);
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
       } else {
