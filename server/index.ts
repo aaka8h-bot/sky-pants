@@ -36,7 +36,10 @@ app.use((req, res, next) => {
   next();
 });
 
+import { connectToDb } from "./db.js";
+
 (async () => {
+  await connectToDb();
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

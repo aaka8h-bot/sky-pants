@@ -1,1 +1,0 @@
-feat: configure frontend to use VITE_API_URL

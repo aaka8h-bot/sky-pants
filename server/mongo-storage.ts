@@ -1,33 +1,25 @@
+
+import { Collection } from 'mongodb';
+import { getDb } from './db';
 import { type Product, type InsertProduct, type Order, type InsertOrder } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { IStorage } from './storage';
+import { randomUUID } from 'crypto';
 
-export interface IStorage {
-  // Products
-  getProducts(): Promise<Product[]>;
-  getProduct(id: string): Promise<Product | undefined>;
-  getProductsByCategory(category: string): Promise<Product[]>;
-  createProduct(product: InsertProduct): Promise<Product>;
-  updateProduct(id: string, product: Partial<Product>): Promise<Product | undefined>;
-  
-  // Orders
-  getOrders(): Promise<Order[]>;
-  getOrder(id: string): Promise<Order | undefined>;
-  createOrder(order: InsertOrder): Promise<Order>;
-  updateOrder(id: string, order: Partial<Order>): Promise<Order | undefined>;
-}
-
-export class MemStorage implements IStorage {
-  private products: Map<string, Product>;
-  private orders: Map<string, Order>;
+export class MongoStorage implements IStorage {
+  private productsCollection: Collection<Product>;
+  private ordersCollection: Collection<Order>;
 
   constructor() {
-    this.products = new Map();
-    this.orders = new Map();
+    const db = getDb();
+    this.productsCollection = db.collection<Product>('products');
+    this.ordersCollection = db.collection<Order>('orders');
     this.initializeProducts();
   }
 
-  private initializeProducts() {
-    const sampleProducts: InsertProduct[] = [
+  private async initializeProducts() {
+    const count = await this.productsCollection.countDocuments();
+    if (count === 0) {
+      const sampleProducts: InsertProduct[] = [
       {
         name: "Classic Formal Pants",
         description: "Premium formal pants perfect for business meetings and special occasions. Made from high-quality fabric with a tailored fit.",
@@ -151,68 +143,65 @@ export class MemStorage implements IStorage {
       }
     ];
 
-    sampleProducts.forEach(product => {
-      const id = randomUUID();
-      this.products.set(id, {
-        id,
-        ...product,
+      const productsToInsert = sampleProducts.map(p => ({
+        ...p,
+        id: randomUUID(),
         inStock: true,
-        inventory: product.inventory || 0,
-        rating: product.rating || "5.0",
         createdAt: new Date(),
-      });
-    });
+      }));
+
+      await this.productsCollection.insertMany(productsToInsert as any);
+      console.log('Seeded database with sample products');
+    }
   }
 
   async getProducts(): Promise<Product[]> {
-    return Array.from(this.products.values());
+    return this.productsCollection.find().toArray();
   }
 
   async getProduct(id: string): Promise<Product | undefined> {
-    return this.products.get(id);
+    const product = await this.productsCollection.findOne({ id });
+    return product || undefined;
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
-    return Array.from(this.products.values()).filter(
-      product => product.category === category
-    );
+    return this.productsCollection.find({ category }).toArray();
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const id = randomUUID();
     const product: Product = {
-      id,
+      id: randomUUID(),
       ...insertProduct,
       inStock: true,
       inventory: insertProduct.inventory || 0,
       rating: insertProduct.rating || "5.0",
       createdAt: new Date(),
     };
-    this.products.set(id, product);
+    await this.productsCollection.insertOne(product as any);
     return product;
   }
 
   async updateProduct(id: string, updateData: Partial<Product>): Promise<Product | undefined> {
-    const existing = this.products.get(id);
-    if (!existing) return undefined;
-    
-    const updated = { ...existing, ...updateData };
-    this.products.set(id, updated);
-    return updated;
+    const result = await this.productsCollection.findOneAndUpdate(
+      { id },
+      { $set: updateData },
+      { returnDocument: 'after' }
+    );
+    return result || undefined;
   }
 
   async getOrders(): Promise<Order[]> {
-    return Array.from(this.orders.values());
+    return this.ordersCollection.find().toArray();
   }
 
   async getOrder(id: string): Promise<Order | undefined> {
-    return this.orders.get(id);
+    const order = await this.ordersCollection.findOne({ id });
+    return order || undefined;
   }
 
   async createOrder(insertOrder: InsertOrder): Promise<Order> {
-    const id = randomUUID();
     const order: Order = {
-      id,
+      id: randomUUID(),
       customerName: insertOrder.customerName,
       customerEmail: insertOrder.customerEmail,
       customerPhone: insertOrder.customerPhone,
@@ -225,18 +214,16 @@ export class MemStorage implements IStorage {
       telegramSent: false,
       createdAt: new Date(),
     };
-    this.orders.set(id, order);
+    await this.ordersCollection.insertOne(order as any);
     return order;
   }
 
   async updateOrder(id: string, updateData: Partial<Order>): Promise<Order | undefined> {
-    const existing = this.orders.get(id);
-    if (!existing) return undefined;
-    
-    const updated = { ...existing, ...updateData };
-    this.orders.set(id, updated);
-    return updated;
+    const result = await this.ordersCollection.findOneAndUpdate(
+      { id },
+      { $set: updateData },
+      { returnDocument: 'after' }
+    );
+    return result || undefined;
   }
 }
-
-export const storage = new MemStorage();

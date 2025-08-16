@@ -1,12 +1,13 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { MongoStorage } from "./mongo-storage.js";
 import { insertOrderSchema } from "@shared/schema";
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8221818796:AAHuC6RplH24gStNeEarpeAszdyYOyiUmaY";
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "5983253591";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  const storage = new MongoStorage();
   // Get all products
   app.get("/api/products", async (req, res) => {
     try {
