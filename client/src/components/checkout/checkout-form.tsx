@@ -65,7 +65,7 @@ export default function CheckoutForm() {
       clearCart();
       toast({
         title: "Order placed successfully!",
-        description: "You will receive a confirmation email shortly. Order details have been sent to Telegram.",
+        description: "You will receive a confirmation email shortly. Order details have been sent to Admin .",
       });
       setLocation("/");
     },

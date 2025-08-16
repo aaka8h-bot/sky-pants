@@ -213,7 +213,7 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const order: Order = {
       id,
-      customerName: `${insertOrder.firstName} ${insertOrder.lastName}`,
+      customerName: insertOrder.customerName,
       customerEmail: insertOrder.customerEmail,
       customerPhone: insertOrder.customerPhone,
       shippingAddress: insertOrder.shippingAddress,

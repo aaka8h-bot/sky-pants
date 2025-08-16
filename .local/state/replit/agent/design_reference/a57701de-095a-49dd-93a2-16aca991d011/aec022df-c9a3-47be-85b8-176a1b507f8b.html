@@ -1,0 +1,842 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKY Pants - Premium Fashion Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a1a1a',
+                        secondary: '#f8f9fa',
+                        accent: '#3b82f6',
+                        neutral: '#6b7280'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'float': 'float 3s ease-in-out infinite'
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .gradient-overlay {
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(26, 26, 26, 0.1));
+        }
+    </style>
+</head>
+<body class="font-inter bg-white text-primary overflow-x-hidden">
+    
+    <!-- @COMPONENT: NavigationHeader -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="text-2xl font-bold text-primary">SKY<span class="text-accent">Pants</span></div>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="#" class="text-neutral hover:text-primary transition-colors duration-200">Men</a>
+                        <a href="#" class="text-neutral hover:text-primary transition-colors duration-200">Women</a>
+                        <a href="#" class="text-neutral hover:text-primary transition-colors duration-200">Collections</a>
+                        <a href="#" class="text-neutral hover:text-primary transition-colors duration-200">About</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        <i class="fas fa-search text-neutral"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        <i class="fas fa-user text-neutral"></i>
+                    </button>
+                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-200" id="cart-btn">
+                        <i class="fas fa-shopping-bag text-neutral"></i>
+                        <span class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
+                    </button>
+                    <button class="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        <i class="fas fa-bars text-neutral"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: NavigationHeader -->
+
+    <!-- @COMPONENT: HeroSection -->
+    <section class="pt-16 min-h-screen flex items-center justify-center bg-gradient-to-br from-secondary via-white to-secondary relative overflow-hidden">
+        <div class="absolute inset-0 gradient-overlay"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-8 animate-fade-in">
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                    Premium<br>
+                    <span class="text-accent">Pants</span><br>
+                    Collection
+                </h1>
+                <p class="text-xl text-neutral leading-relaxed">
+                    Discover our curated selection of high-quality pants designed for the modern lifestyle. 
+                    From casual to formal, find your perfect fit.
+                </p>
+                <div class="flex space-x-4">
+                    <button class="bg-primary text-white px-8 py-4 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105">
+                        Shop Now
+                    </button>
+                    <button class="border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-primary hover:text-white transition-all duration-300">
+                        View Collection
+                    </button>
+                </div>
+            </div>
+            <div class="relative">
+                <!-- Hero product showcase with floating animation -->
+                <!-- A fashionable model wearing stylish dark jeans in a modern studio setting -->
+                <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000" 
+                     alt="Premium pants collection hero image" 
+                     class="w-full h-auto rounded-2xl shadow-2xl animate-float" />
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HeroSection -->
+
+    <!-- @COMPONENT: ProductCatalog -->
+    <section class="py-20 bg-white" id="products">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Featured Collection</h2>
+                <p class="text-neutral text-lg">Handpicked styles for every occasion</p>
+            </div>
+
+            <!-- Product Filter Tabs -->
+            <div class="flex justify-center mb-12">
+                <div class="flex bg-gray-100 rounded-lg p-1">
+                    <button class="px-6 py-2 rounded-md bg-white shadow-sm text-primary font-medium transition-all duration-200" data-filter="all">All</button>
+                    <button class="px-6 py-2 rounded-md text-neutral hover:text-primary transition-all duration-200" data-filter="men">Men</button>
+                    <button class="px-6 py-2 rounded-md text-neutral hover:text-primary transition-all duration-200" data-filter="women">Women</button>
+                    <button class="px-6 py-2 rounded-md text-neutral hover:text-primary transition-all duration-200" data-filter="casual">Casual</button>
+                    <button class="px-6 py-2 rounded-md text-neutral hover:text-primary transition-all duration-200" data-filter="formal">Formal</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <!-- @MAP: products.map(product => ( -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
+                <!-- Product Card 1 -->
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="men formal" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Stylish black formal trousers on a clean white background -->
+                        <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
+                             alt="Premium formal pants" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $89.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('formal-black-pants', 89.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Classic Formal Pants</h3>
+                        <p class="text-neutral" data-bind="product.category">Men's Formal</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$89.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="women casual" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Trendy women's jeans in a lifestyle setting -->
+                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
+                             alt="Women's casual jeans" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $79.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('casual-womens-jeans', 79.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Casual Denim Jeans</h3>
+                        <p class="text-neutral" data-bind="product.category">Women's Casual</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$79.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="men casual" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Men's khaki chinos styled casually -->
+                        <img src="https://pixabay.com/get/ga63f1a5c25a06c3b5c86fadec3948ee04a4ff4c7dfccff1c2ccf2b8fcad9afe7ee7483ca3374d6deba12b19ebc2b7ce6ab0c41b354b25de0c115567b92ae0258_1280.jpg" 
+                             alt="Men's khaki chinos" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $69.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('khaki-chinos', 69.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Khaki Chinos</h3>
+                        <p class="text-neutral" data-bind="product.category">Men's Casual</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$69.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="women formal" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Professional women's dress pants in business setting -->
+                        <img src="https://images.unsplash.com/photo-1594633313593-bab3825d0caf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
+                             alt="Women's professional dress pants" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $99.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('womens-dress-pants', 99.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Professional Dress Pants</h3>
+                        <p class="text-neutral" data-bind="product.category">Women's Formal</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$99.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Product Cards -->
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="men casual" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Men's dark wash denim jeans -->
+                        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
+                             alt="Men's dark wash jeans" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $84.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('dark-wash-jeans', 84.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Dark Wash Jeans</h3>
+                        <p class="text-neutral" data-bind="product.category">Men's Casual</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$84.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="women casual" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Women's high-waisted leggings in active wear style -->
+                        <img src="https://pixabay.com/get/g8697573a5f82581ce4d0ea97c351a1efba5e61786effdf56365dffd86bb208d789d491f0272635dceed35a6a1296734d3060f1c021db5807e2bdad6142ff27b3_1280.jpg" 
+                             alt="Women's high-waisted leggings" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $59.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('high-waist-leggings', 59.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">High-Waist Leggings</h3>
+                        <p class="text-neutral" data-bind="product.category">Women's Active</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$59.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="men formal" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Men's navy blue suit pants -->
+                        <img src="https://images.unsplash.com/photo-1594633313593-bab3825d0caf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
+                             alt="Men's navy suit pants" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $119.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('navy-suit-pants', 119.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Navy Suit Pants</h3>
+                        <p class="text-neutral" data-bind="product.category">Men's Formal</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$119.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer transform transition-all duration-300 hover:scale-105" data-category="women formal" data-mock="true">
+                    <div class="relative overflow-hidden rounded-xl bg-gray-50">
+                        <!-- Women's elegant wide-leg trousers -->
+                        <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500" 
+                             alt="Women's wide-leg trousers" 
+                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                            $94.99
+                        </div>
+                        <button class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gray-800" onclick="addToCart('wide-leg-trousers', 94.99)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-lg" data-bind="product.name">Wide-Leg Trousers</h3>
+                        <p class="text-neutral" data-bind="product.category">Women's Formal</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-xl font-bold" data-bind="product.price">$94.99</span>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_MAP )) -->
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ProductCatalog -->
+
+    <!-- @COMPONENT: FeaturesSection -->
+    <section class="py-20 bg-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Why Choose SKY Pants?</h2>
+                <p class="text-neutral text-lg">Premium quality meets modern design</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-shipping-fast text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Fast Shipping</h3>
+                    <p class="text-neutral">Free shipping on orders over $75. Get your pants delivered within 2-3 business days.</p>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-medal text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Premium Quality</h3>
+                    <p class="text-neutral">Made from the finest materials with attention to every detail and craftsmanship.</p>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-undo text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Easy Returns</h3>
+                    <p class="text-neutral">30-day return policy. If you're not satisfied, we'll make it right.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: FeaturesSection -->
+
+    <!-- @COMPONENT: FloatingCart -->
+    <div class="fixed right-6 bottom-6 z-40">
+        <button class="bg-accent text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-110" id="floating-cart" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart text-xl"></i>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center" id="floating-cart-count">0</span>
+        </button>
+    </div>
+    <!-- @END_COMPONENT: FloatingCart -->
+
+    <!-- @COMPONENT: CartSidebar -->
+    <div class="fixed inset-0 z-50 hidden" id="cart-sidebar">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300" id="cart-panel">
+            <div class="flex items-center justify-between p-6 border-b">
+                <h3 class="text-xl font-semibold">Shopping Cart</h3>
+                <button onclick="toggleCart()" class="p-2 hover:bg-gray-100 rounded-full">
+                    <i class="fas fa-times text-neutral"></i>
+                </button>
+            </div>
+            <div class="flex-1 p-6 overflow-y-auto" id="cart-items">
+                <div class="text-center text-neutral py-12" id="empty-cart">
+                    <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            <div class="border-t p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Total:</span>
+                    <span class="text-xl font-bold" id="cart-total">$0.00</span>
+                </div>
+                <button class="w-full bg-accent text-white py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200" onclick="checkout()" id="checkout-btn" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: CartSidebar -->
+
+    <!-- @COMPONENT: CheckoutModal -->
+    <div class="fixed inset-0 z-50 hidden flex items-center justify-center" id="checkout-modal">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeCheckout()"></div>
+        <div class="relative bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold">Checkout</h3>
+                <button onclick="closeCheckout()" class="p-2 hover:bg-gray-100 rounded-full">
+                    <i class="fas fa-times text-neutral"></i>
+                </button>
+            </div>
+            
+            <form id="checkout-form" onsubmit="processOrder(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">First Name</label>
+                        <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" data-bind="customer.firstName">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Last Name</label>
+                        <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" data-bind="customer.lastName">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Email</label>
+                    <input type="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" data-bind="customer.email">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Phone</label>
+                    <input type="tel" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" data-bind="customer.phone">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Shipping Address</label>
+                    <textarea required rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Enter your complete address" data-bind="customer.address"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">City</label>
+                        <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" data-bind="customer.city">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Postal Code</label>
+                        <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent" data-bind="customer.postalCode">
+                    </div>
+                </div>
+                
+                <div class="border-t pt-6 mb-6">
+                    <h4 class="font-semibold mb-4">Order Summary</h4>
+                    <div id="checkout-items"></div>
+                    <div class="flex justify-between items-center text-xl font-bold mt-4">
+                        <span>Total:</span>
+                        <span id="checkout-total">$0.00</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full bg-accent text-white py-4 rounded-lg hover:bg-blue-600 transition-colors duration-200 font-semibold text-lg">
+                    Place Order
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: CheckoutModal -->
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-primary text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">SKY<span class="text-accent">Pants</span></div>
+                    <p class="text-gray-300 mb-4">Premium quality pants for the modern lifestyle. Discover comfort and style in every piece.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Men's Pants</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Women's Pants</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Formal Wear</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Casual Wear</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors duration-200">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe for exclusive offers and new arrivals.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-l-lg text-primary">
+                        <button class="bg-accent px-6 py-2 rounded-r-lg hover:bg-blue-600 transition-colors duration-200">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 SKY Pants. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        (function() {
+            // Cart state management
+            <!-- @STATE: cart:array = [] -->
+            let cart = [];
+            let isCartOpen = false;
+
+            // Telegram configuration - DO NOT implement actual API calls
+            const TELEGRAM_BOT_TOKEN = '8221818796:AAHuC6RplH24gStNeEarpeAszdyYOyiUmaY';
+            const TELEGRAM_CHAT_ID = '5983253591';
+
+            // Add to cart functionality
+            window.addToCart = function(productId, price) {
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                        price: price,
+                        quantity: 1
+                    });
+                }
+                updateCartUI();
+                
+                // Show success message
+                showNotification('Item added to cart!', 'success');
+            };
+
+            // Toggle cart sidebar
+            window.toggleCart = function() {
+                const sidebar = document.getElementById('cart-sidebar');
+                const panel = document.getElementById('cart-panel');
+                
+                if (isCartOpen) {
+                    panel.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        sidebar.classList.add('hidden');
+                    }, 300);
+                    isCartOpen = false;
+                } else {
+                    sidebar.classList.remove('hidden');
+                    setTimeout(() => {
+                        panel.style.transform = 'translateX(0)';
+                    }, 10);
+                    isCartOpen = true;
+                }
+            };
+
+            // Update cart UI
+            function updateCartUI() {
+                const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                document.getElementById('cart-count').textContent = cartCount;
+                document.getElementById('floating-cart-count').textContent = cartCount;
+                document.getElementById('cart-total').textContent = `$${cartTotal.toFixed(2)}`;
+                
+                const cartItems = document.getElementById('cart-items');
+                const emptyCart = document.getElementById('empty-cart');
+                const checkoutBtn = document.getElementById('checkout-btn');
+                
+                if (cart.length === 0) {
+                    emptyCart.style.display = 'block';
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.classList.add('opacity-50');
+                } else {
+                    emptyCart.style.display = 'none';
+                    checkoutBtn.disabled = false;
+                    checkoutBtn.classList.remove('opacity-50');
+                    
+                    cartItems.innerHTML = `
+                        <div class="space-y-4">
+                            ${cart.map(item => `
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold">${item.name}</h4>
+                                        <p class="text-neutral">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button onclick="updateQuantity('${item.id}', ${item.quantity - 1})" class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300">
+                                            <i class="fas fa-minus text-xs"></i>
+                                        </button>
+                                        <span class="w-8 text-center">${item.quantity}</span>
+                                        <button onclick="updateQuantity('${item.id}', ${item.quantity + 1})" class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300">
+                                            <i class="fas fa-plus text-xs"></i>
+                                        </button>
+                                        <button onclick="removeFromCart('${item.id}')" class="ml-2 text-red-500 hover:text-red-600">
+                                            <i class="fas fa-trash text-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
+
+            // Update quantity
+            window.updateQuantity = function(productId, newQuantity) {
+                if (newQuantity <= 0) {
+                    removeFromCart(productId);
+                    return;
+                }
+                
+                const item = cart.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = newQuantity;
+                    updateCartUI();
+                }
+            };
+
+            // Remove from cart
+            window.removeFromCart = function(productId) {
+                cart = cart.filter(item => item.id !== productId);
+                updateCartUI();
+                showNotification('Item removed from cart', 'info');
+            };
+
+            // Checkout functionality
+            window.checkout = function() {
+                if (cart.length === 0) return;
+                
+                document.getElementById('checkout-modal').classList.remove('hidden');
+                updateCheckoutSummary();
+            };
+
+            // Close checkout modal
+            window.closeCheckout = function() {
+                document.getElementById('checkout-modal').classList.add('hidden');
+            };
+
+            // Update checkout summary
+            function updateCheckoutSummary() {
+                const checkoutItems = document.getElementById('checkout-items');
+                const checkoutTotal = document.getElementById('checkout-total');
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                checkoutTotal.textContent = `$${total.toFixed(2)}`;
+                checkoutItems.innerHTML = cart.map(item => `
+                    <div class="flex justify-between items-center py-2">
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Process order
+            window.processOrder = function(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const orderData = {
+                    customer: {
+                        firstName: formData.get('firstName') || event.target.querySelector('[data-bind="customer.firstName"]').value,
+                        lastName: formData.get('lastName') || event.target.querySelector('[data-bind="customer.lastName"]').value,
+                        email: formData.get('email') || event.target.querySelector('[data-bind="customer.email"]').value,
+                        phone: formData.get('phone') || event.target.querySelector('[data-bind="customer.phone"]').value,
+                        address: formData.get('address') || event.target.querySelector('[data-bind="customer.address"]').value,
+                        city: formData.get('city') || event.target.querySelector('[data-bind="customer.city"]').value,
+                        postalCode: formData.get('postalCode') || event.target.querySelector('[data-bind="customer.postalCode"]').value
+                    },
+                    items: cart,
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    orderDate: new Date().toISOString()
+                };
+
+                // TODO: Implement Telegram bot notification
+                // This would send order details to the specified Telegram bot
+                console.log('Order data to be sent to Telegram:', orderData);
+                
+                // Simulate order processing
+                showNotification('Order placed successfully! You will receive a confirmation shortly.', 'success');
+                
+                // Clear cart and close modals
+                cart = [];
+                updateCartUI();
+                closeCheckout();
+                toggleCart();
+            };
+
+            // Product filtering
+            document.querySelectorAll('[data-filter]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
+                    
+                    // Update active button
+                    document.querySelectorAll('[data-filter]').forEach(btn => {
+                        btn.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+                        btn.classList.add('text-neutral');
+                    });
+                    this.classList.add('bg-white', 'shadow-sm', 'text-primary');
+                    this.classList.remove('text-neutral');
+                    
+                    // Filter products
+                    document.querySelectorAll('[data-category]').forEach(product => {
+                        if (filter === 'all' || product.dataset.category.includes(filter)) {
+                            product.style.display = 'block';
+                            product.style.animation = 'fadeIn 0.5s ease-in-out';
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Notification system
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `fixed top-20 right-6 z-50 p-4 rounded-lg shadow-lg max-w-sm transform translate-x-full transition-transform duration-300 ${
+                    type === 'success' ? 'bg-green-500 text-white' :
+                    type === 'error' ? 'bg-red-500 text-white' :
+                    'bg-blue-500 text-white'
+                }`;
+                notification.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'} mr-3"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 100) {
+                    navbar.classList.add('bg-white/98', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('bg-white/98', 'shadow-lg');
+                }
+            });
+
+            // Initialize animations on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.6s ease-in-out';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('[data-category]').forEach(el => {
+                observer.observe(el);
+            });
+
+        })();
+    </script>
+</body>
+</html>
